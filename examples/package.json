@@ -1,0 +1,8 @@
+{
+  "name": "atris-api-examples",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "openai": "^4.0.0"
+  }
+}
