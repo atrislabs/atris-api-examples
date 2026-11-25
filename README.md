@@ -4,7 +4,37 @@ Working examples for the Atris API. Every request is billed from actual model us
 
 Base URL: `https://api.atris.ai`
 
-Machine-readable guide (point your agent at this): `https://api.atris.ai/llms.txt`
+Machine-readable guides (point your agent at these):
+- Full API guide: `https://api.atris.ai/llms.txt`
+- Zero-API-key x402 discovery (Base USDC): `https://api.atris.ai/.well-known/x402` | `https://api.atris.ai/x402/openapi.json` | `https://api.atris.ai/SKILL.md`
+- Live x402scan directory: [x402scan.com/server/94aa677d-d793-49c0-8537-a93254c1d552](https://www.x402scan.com/server/94aa677d-d793-49c0-8537-a93254c1d552)
+
+## Zero API keys: pay per request with x402 (Base USDC)
+
+If your agent holds USDC on Base (`eip155:8453`), skip signup and call Atris directly with no API key:
+
+| Endpoint | Price (USDC) | What it does |
+|---|---|---|
+| `POST /x402/team-1/chat/completions` | `$0.03` | OpenAI-compatible `team-1` (fast open model + stronger reviewer check) |
+| `POST /x402/agents/agent-1` | `$0.03` | Call published Atris `agent-1` via OpenAI chat completions |
+| `POST /x402/aeo/check` | `$0.75` | AI Engine Optimization audit across ChatGPT & Perplexity |
+| `POST /x402/design/extract` | `$0.25` | Extract full brand & CSS design tokens from any public URL |
+| `POST /x402/design/search` | `$0.05` | Search extracted brand design systems by visual style |
+| `POST /x402/documents/parse` | `$0.25` | Verified PDF/image to Markdown parser (up to 5 pages) |
+| `POST /x402/youtube/search` | `$0.05` | Verified YouTube video watch permalinks & titles |
+
+Free dry-run probe (no wallet required):
+
+```bash
+python3 examples/x402_pay.py --probe
+```
+
+Live paid call:
+
+```bash
+export BASE_PRIVATE_KEY="0x..."
+python3 examples/x402_pay.py --url https://api.atris.ai/x402/team-1/chat/completions
+```
 
 ## Get a key
 
@@ -57,6 +87,9 @@ curl https://api.atris.ai/v1/chat/completions \
 | [`examples/chat.js`](examples/chat.js) | Chat with the OpenAI Node SDK |
 | [`examples/receipt.py`](examples/receipt.py) | Fetch the billing receipt for a request |
 | [`examples/keys.sh`](examples/keys.sh) | List keys, check balance, see per-key usage |
+| [`examples/x402_probe.sh`](examples/x402_probe.sh) | Inspect live x402 v2 payment challenges with curl (free) |
+| [`examples/x402_pay.py`](examples/x402_pay.py) | Call any Atris x402 endpoint in Python with Base USDC (zero API keys) |
+| [`examples/x402_pay.mjs`](examples/x402_pay.mjs) | Call any Atris x402 endpoint in Node.js (`viem`) with Base USDC |
 
 ## Billing
 
